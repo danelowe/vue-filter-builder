@@ -87,5 +87,4 @@ export const attributeTypes = {
   } as AttributeType<any>
 }
 
-
 export type AttributeTypeName = keyof typeof attributeTypes

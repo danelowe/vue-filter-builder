@@ -1,7 +1,7 @@
 <template>
   <div class="flex">
     <FilterOperatorChooser
-      class="bg-white"
+      class="bg-white border-2 border-gray-300"
       :operators="attributeConfig.operators"
       :filter="attributeFilter"
       @update:filter="attributeFilter = $event; $emit('submit:filter')"
@@ -10,7 +10,7 @@
       :range="attributeFilter.operator === '><'"
       :filter="attributeFilter"
       :config="attributeConfig"
-      class="flex-grow w-full rounded px-1"
+      class="flex-grow w-full rounded px-1  border-gray-300 border-2"
       @update:filter="attributeFilter = $event"
       @submit:filter="$emit('submit:filter')"
     />

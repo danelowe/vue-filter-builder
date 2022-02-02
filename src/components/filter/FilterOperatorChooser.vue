@@ -1,5 +1,5 @@
 <template>
-  <ButtonDropdown class="button">
+  <ButtonDropdown class="inline-block p-1 h-8 px-2 mx-1 rounded">
     <template #button>
       <span class="uppercase" v-if="filter.operator === '><'">Between</span><span v-else>{{ filter.operator }}</span>
     </template>

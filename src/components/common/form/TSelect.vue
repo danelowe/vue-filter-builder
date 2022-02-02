@@ -1,6 +1,6 @@
 <template>
   <label v-if="label" class="text-sm text-gray-500">{{ label }}</label>
-  <ButtonDropdown class="button bg-white" v-bind="$attrs">
+  <ButtonDropdown class="bg-white inline-block p-1 h-8 px-2 mx-1 rounded" v-bind="$attrs">
     <template #button>
       {{ buttonLabel }}
     </template>

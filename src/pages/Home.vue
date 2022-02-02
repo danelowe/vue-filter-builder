@@ -13,16 +13,18 @@
       @submit:filter="submitFilter"
     />
 
-    <h2 class="my-4">Expanded Filter:</h2>
-    <pre>
-    {{ filterData }}
-    </pre>
+    <h2 class="my-4">Full Filter:</h2>
+    <pre>{{ filterData }}</pre>
+    <h2 class="my-4">Machine-readable filter string:</h2>
+    <pre>{{ filterString }}</pre>
+    <h2 class="my-4">Compressed Filter:</h2>
+    <pre>{{ compressedFilter }}</pre>
     <h2 class="my-4">Filter Config</h2>
     <pre v-if="results">{{results.filterConfig}}</pre>
   </main>
 </template>
 <script lang="ts">
-import {defineComponent, ref} from "vue";
+import {computed, defineComponent, ref} from "vue";
 import Filter from "/@/components/filter/Filter.vue";
 import DataTable, {Heading} from "/@/components/common/DataTable.vue";
 import DateCell from "/@/components/common/datatable/DateCell.vue";
@@ -31,6 +33,8 @@ import RatingCell from "/@/components/review/RatingCell.vue";
 import {useResults} from "/@/lib/useResults";
 import {ResultSetReviewAdminListView} from "/@/api/model/ResultSetReviewAdminListView";
 import {ReviewService} from "/@/api/services/ReviewService";
+import {compressFilter} from "/@/lib/filterCompression";
+import {filterAsString} from "/@/lib/filters";
 
 export default defineComponent({
   components: {Filter, DataTable},
@@ -55,7 +59,9 @@ export default defineComponent({
       console.log(`open moderation modal for review: ${id}`)
     }
     const { results, filterData, submitFilter } = useResults<ResultSetReviewAdminListView>(ReviewService.listReviews)
-    return {results, submitFilter, filterData, headings, moderateReview}
+    const filterString = computed(() => results.value ? filterAsString(filterData.value, results.value?.filterConfig, false) : '')
+    const compressedFilter = computed(() => results.value ? compressFilter(filterData.value, results.value?.filterConfig) : '')
+    return {results, submitFilter, filterData, headings, moderateReview, filterString, compressedFilter}
   }
 
 })

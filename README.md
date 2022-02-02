@@ -8,7 +8,12 @@ however I have not used or seen that code, and this implementation is designed f
 
 ## Run it and play
 
-```npm run dev```
+```
+npm install
+npm run dev
+```
+
+Open http://localhost:3000
 
 There is a single page. The data is hardcoded so will not change.
 
@@ -23,7 +28,8 @@ The backend reads this filter using an Antlr parser I created for the custom fil
 
 We could add the same filter string as the URL parameter,
 however the parsing code would add quite a bit of weight to the page.
-For this reason, the URL parameter is a minimised representation of the filter, which has then been base64 encoded.
+For this reason, the URL parameter is an ugly but easily parsable minimised representation of the filter,
+which has then been base64 encoded.
 
 The full representation of the filter is shown below the table,
 along with the config that is used to generate the filter UI
@@ -45,3 +51,4 @@ along with the config that is used to generate the filter UI
 * The DataTable component allows for flexible display of data.
   One can specify a component type to use for the display of cells in any column.
 * Date representations _should_ be localized, but I haven't tested that yet.
+* The full solution involves different filter types including presets that can be saved.

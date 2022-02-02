@@ -5,22 +5,16 @@
       <span class="sr-only">Remove</span>
     </button>
     <FilterChooser type="attribute" :label="filterLabel" :options="filterOptions" @change="changeFilter" />
-    <FilterOperatorChooser :operators="attributeConfig.operators" :filter="filter" @update:filter="$emit('update:filter', $event)" class="bg-purple-700 text-white" />
+    <FilterOperatorChooser :operators="attributeConfig.operators" :filter="filter" @update:filter="$emit('update:filter', $event)" class="bg-purple-700 text-white button" />
     <div>
-      <div ref="inputContainer" tabindex="-1" @focus="enteringValue = true" @focusout="blur">
-        <FilterInputSet
-          v-if="enteringValue"
-          :range="filter.operator === '><'"
-          :filter="filter"
-          :config="attributeConfig"
-          class="flex-grow w-full rounded px-1"
-          @update:filter="$emit('update:filter', $event)"
-          @submit:filter="$emit('submit:filter')"
-        />
-      </div>
-      <button v-if="!enteringValue" type="button" class="button bg-gray-300" @click="$refs.inputContainer.focus()">
-        {{ filterValueLabel }}
-      </button>
+      <FilterInputSet
+        :range="filter.operator === '><'"
+        :filter="filter"
+        :config="attributeConfig"
+        class="flex-grow w-full rounded px-1 border-2 h-8"
+        @update:filter="$emit('update:filter', $event)"
+        @submit:filter="$emit('submit:filter')"
+      />
     </div>
   </div>
 </template>
@@ -28,7 +22,7 @@
 import {computed, defineComponent, PropType, ref} from 'vue'
 import {
   AttributeFilter,
-  AttributeTypeName, FilterAttributeConfig,
+  FilterAttributeConfig,
   FilterConfig,
   filterValueAsString,
 } from '/@/lib/filters'
@@ -42,7 +36,7 @@ import {useFilters} from "/@/lib/useFilters";
 export default defineComponent({
   components: {FilterInputSet, FilterOperatorChooser, DateTimeField, FilterChooser, IconPlus},
   props: {
-    filter: { required: true, type: Object as PropType<AttributeFilter> },
+    filter: { required: true, type: Object as PropType<AttributeFilter<any>> },
     config: { required: true, type: Object as PropType<FilterConfig> }
   },
   emits: ['update:filter', 'remove'],
