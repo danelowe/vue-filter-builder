@@ -1,0 +1,6 @@
+/node_modules/**
+/.cache/**
+/dist/**
+/tests/unit/coverage/**
+**/.temp/**
+/src/components/icons/index.ts
